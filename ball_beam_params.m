@@ -1,12 +1,12 @@
 % Ball Sim Parameters
 
-R = 2; % ball radius
-L = 10; % length of beam
+P.R = 2; % ball radius
+P.L = 10; % length of beam
 
-theta_init = pi/2;
-theta_max = 2*pi;
-theta_min = 0;
+P.theta_init = pi/2;
+P.theta_max = 2*pi;
+P.theta_min = 0;
 
-z_init = L/2;
-z_min = 0;
-z_max = L;
+P.z_init = L/2;
+P.z_min = 0;
+P.z_max = L;
