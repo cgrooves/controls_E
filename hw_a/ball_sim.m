@@ -63,6 +63,9 @@ guidata(hObject, handles);
 
 % Other starting things
 % set z_slider and theta_slider min's and max's
+ball_paramsHWA
+set(handles.z_slider,'Min',z_min,'Max',z_max)
+set(handles.theta_slider,'Min',theta_min,'Max',theta_max)
 
 % --- Outputs from this function are returned to the command line.
 function varargout = ball_sim_OutputFcn(hObject, eventdata, handles) 
@@ -83,7 +86,7 @@ function slider1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
+draw_ball_beam(handles);
 
 % --- Executes during object creation, after setting all properties.
 function slider1_CreateFcn(hObject, eventdata, handles)
@@ -105,7 +108,7 @@ function slider2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
+draw_ball_beam(handles);
 
 % --- Executes during object creation, after setting all properties.
 function slider2_CreateFcn(hObject, eventdata, handles)
