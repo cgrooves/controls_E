@@ -20,15 +20,12 @@ function draw_ball_beam(handles,flag)
     persistent ball;
     persistent beam;
     
-    if flag == '--i'
-%         hold on
-        set(handles.axes1,'XLim',[-2*L,2*L],'YLim',[-2*L,2*L]);
-        ball = viscircles(ball_pt,R);
-        beam = line(handles.axes1,beam_pts(1,:),beam_pts(2,:));
+%       hold on
+    cla
+    set(handles.axes1,'XLim',[-2*L,2*L],'YLim',[-2*L,2*L]);
+    ball = viscircles(ball_pt,R);
+    beam = line(handles.axes1,beam_pts(1,:),beam_pts(2,:)); 
+    set(beam,'XData',beam_pts(1,:),'YData',beam_pts(2,:))
+    viscircles(ball_pt,R);
 
-    else
-        
-        set(beam,'XData',beam_pts(1,:),'YData',beam_pts(2,:))
-        viscircles(ball_pt,R);
-    end
 end
