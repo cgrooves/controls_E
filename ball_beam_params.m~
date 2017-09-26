@@ -6,16 +6,14 @@ P.g = 9.8; % m/s^2, gravity constant
 
 % Ball/Beam Sim Parameters
 P.R = 0.1;
-P.Length = 2;
+Length = 5;
 
 % Initial conditions
-P.z0 = P.l/2;
+P.z0 = 0;
 P.zdot0 = 0;
 P.theta0 = 0;
 P.thetadot0 = 0;
 
-P.f_init = P.g/2*(P.m1 + P.m2); % equilibrium force
-P.f_max = P.f_init * 2;
-P.f_in = P.f_init * -2;
+
 
 P.Ts = 0.1; % simulation time step
