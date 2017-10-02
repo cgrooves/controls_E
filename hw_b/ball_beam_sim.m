@@ -15,7 +15,7 @@ ax = handles.plot1;
 f_slider = handles.force_slider;
 
 % set slider values
-set(f_slider,'Min',-P.f_max,'Max',P.f_max,'Value',P.f_init);
+set(f_slider,'Min',-0.1*P.f_max,'Max',P.f_max,'Value',P.f_init);
 
 % create animation object
 animation = BallBeamAnimation(P,ax);
@@ -25,10 +25,12 @@ while isgraphics(ballBeam)
     
     % get input values
     f = get(f_slider,'Value');
+    
     % propagate the dynamics
     dynamics.propagateDynamics(f);
+
     % update the animation
-    y = dynamics.output();
+    y = dynamics.output();    
     
     % reset ball if it falls too far
     if y(1) < -5*P.Length || y(1) > 5*P.Length
@@ -38,6 +40,6 @@ while isgraphics(ballBeam)
     
     % draw the animation
     animation.draw(y);
-    pause(0.08);
+    pause(P.Ts);
     
 end

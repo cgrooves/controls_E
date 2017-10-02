@@ -15,7 +15,7 @@ P.theta0 = 0;
 P.thetadot0 = 0;
 
 P.f_init = P.g/2*(P.m1 + P.m2); % equilibrium force
-P.f_max = P.f_init * 2;
-P.f_in = P.f_init * -2;
+P.f_max = P.f_init * 1.1;
+P.f_min = P.f_init * -1.1;
 
 P.Ts = 0.1; % simulation time step

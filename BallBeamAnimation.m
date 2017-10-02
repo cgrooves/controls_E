@@ -36,7 +36,7 @@ classdef BallBeamAnimation
             z = x(1);
             theta = x(2);
             
-            self.ball.translate([z; z*sin(theta)]);
+            self.ball.translate([z*cos(theta); z*sin(theta)]);
             self.beam.rotate(theta*180/pi);
         end
         %-----------------------        
