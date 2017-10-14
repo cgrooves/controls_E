@@ -42,6 +42,14 @@ classdef BallBeamDynamics < handle
             k3 = self.derivatives(self.state + self.Ts/2*k2, u);
             k4 = self.derivatives(self.state + self.Ts*k3, u);
             self.state = self.state + self.Ts/6 * (k1 + 2*k2 + 2*k3 + k4);
+            
+            if self.state(1) > self.l
+                self.state(1) = self.l;
+                self.state(2) = 0;
+            elseif self.state(1) < 0
+                self.state(1) = 0;
+                self.state(2) = 0;
+            end
         end
         %-----------------------
         function xdot = derivatives(self,state,u)
