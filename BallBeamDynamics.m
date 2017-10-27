@@ -7,6 +7,7 @@ classdef BallBeamDynamics < handle
         l
         g
         Ts
+        var
         initials
     end
     
@@ -24,9 +25,13 @@ classdef BallBeamDynamics < handle
             self.initials = self.state; % store initial values
             
             % initialize other sim parameters
-            self.m1 = P.m1;
-            self.m2 = P.m2;
-            self.l = P.l;
+            % introduce up to 20% uncertainty in parameters
+            self.var = P.var;
+            
+            self.m1 = P.m1*((2*self.var)*rand + (1-self.var));
+            self.m2 = P.m2*((2*self.var)*rand + (1-self.var));
+            self.l = P.l*((2*self.var)*rand + (1-self.var));
+            
             self.g = P.g;
             self.Ts = P.Ts;
         end

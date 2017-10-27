@@ -4,6 +4,8 @@ P.m2 = 2; % kg, mass of the beam
 P.l = 0.5; % m, length of the beam
 P.g = 9.8; % m/s^2, gravity constant
 
+P.var = 0.2; % uncertainty parameter, affects m1, m2, l
+
 % Ball/Beam Sim Parameters
 P.R = 0.1;
 P.Length = 1;
