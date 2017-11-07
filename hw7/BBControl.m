@@ -16,8 +16,9 @@ classdef BBControl
     methods
        %----------------
        function self = BBControl(P)
-           self.thetaCtrl = PDControl(P.theta_gains.kP,P.theta_gains.kD,P.Ts);
-           self.zCtrl = PDControl(P.z_gains.kP,P.z_gains.kD,P.Ts,P.sat_limit);
+           
+           self.thetaCtrl = PDControl(P.theta_gains.kP,P.theta_gains.kD,P.tau,P.Ts,P.sat_limit);
+           self.zCtrl = PIDControl(P.z_gains,P.tau,P.Ts,P.sat_limit,0.1);
            
            self.m1 = P.m1;
            self.m2 = P.m2;
@@ -29,22 +30,15 @@ classdef BBControl
        end
        %----------------
        function force = u(self,z_r,z,theta)
-           
+           % Get equilibrium force for current position
+           F_eq = self.g*(self.m1*z/self.l + self.m2/2); % equilibrium force
+
            % Get theta_ref from zCtrl
-           theta_ref = self.zCtrl.PD(z_r,z);
+           theta_ref = self.zCtrl.PID(z_r,z,0.0,0);
            
            % Get force from theta_ref
-           F_eq = self.g*(self.m1*z/self.l + self.m2/2); % equilibrium force
-           init_force = self.thetaCtrl.PD(theta_ref,theta) + F_eq;
+           force = self.thetaCtrl.PD(theta_ref,theta,F_eq);
            
-           % saturation block
-           if init_force < self.limit(1)
-               force = self.limit(1);
-           elseif init_force > self.limit(2)
-               force = self.limit(2);
-           else
-               force = init_force;
-           end
            
        end
        %----------------
