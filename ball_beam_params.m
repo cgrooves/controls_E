@@ -38,11 +38,11 @@ P.Ts = 0.01; % simulation time step
 P.sat_limit = [-15,15];
 P.tau = 0.05; % dirty derivative time constant
 
-P.zeta_theta = .707;
+P.zeta_theta = 1/sqrt(2);
 P.tr_theta = .153; % PID value: .153
 P.wn_theta = 2.2/P.tr_theta;
 
-P.zeta_z = .707;
+P.zeta_z = 1/sqrt(2);
 P.tr_z = 10*P.tr_theta;
 P.wn_z = 2.2/P.tr_z;
 
@@ -66,10 +66,19 @@ P.D = 0;
 
 P.C_ab = ctrb(P.A,P.B);
 
+if det(P.C_ab) == 0
+    fprintf ("System is not controllable\n");
+else
+    fprintf("System is controllable\n");
+end
+
 P.p = roots([1,2*(P.zeta_theta*P.wn_theta+P.zeta_z+P.wn_z), P.wn_z^2 + ...
     P.wn_theta^2 + 4*P.zeta_theta*P.zeta_z*P.wn_z*P.wn_theta, ...
     2*(P.zeta_theta*P.wn_z^2*P.wn_theta + P.zeta_z*P.wn_theta^2*P.wn_z),...
-    P.wn_z^2*P.wn_theta^2]);
+    P.wn_z^2*P.wn_theta^2]); % roots of multiplying each characteristic
+% equation together
+ 
+%P.p = [-1+5i,-1-5i,-8+4i,-8-4i];
 
 P.K = place(P.A,P.B,P.p);
 %P.K = [-23.31 94.333 -17.7929 9.2845];
