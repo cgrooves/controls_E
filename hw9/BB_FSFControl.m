@@ -69,12 +69,12 @@ classdef BB_FSFControl < handle
             
             u_tilde = -self.K*x - self.ki*self.ui; % calculated input   
             u_eq = self.g*(self.m1*x(1)/self.l + self.m2/2); % equilibrium force
-            u_unsat = u_tilde + u_eq; % unsaturated force
+            u_unsat = u_tilde + u_eq + 1; % unsaturated force
             u = self.saturate(u_unsat); % saturated force
             
             %integrator anti-windup
             if self.ki ~= 0
-                self.ui = self.ui + (u-u_unsat)*self.Ts/self.ki;
+                self.ui = self.ui + (u-u_unsat)/self.ki;
             end            
             
                         
