@@ -13,7 +13,7 @@ P.Length = 1;
 P.ze = P.l/2;
 
 % Initial conditions
-P.z0 = 0;
+P.z0 = P.ze;
 P.zdot0 = 0;
 P.theta0 = 0;
 P.thetadot0 = 0;
@@ -86,6 +86,6 @@ P.kr = -1/(P.Cr*((P.A-P.B*P.K)\P.B));
 %P.kr = 166.18;
 
 %% FSF w/integrator
-P.p1 = cat(1,P.p,-3); % set additional integrator pole
+P.p1 = cat(1,P.p,-); % set additional integrator pole
 [P.K1, P.ki1] = FSF_integrator(P.A,P.B,P.Cr,P.p1); % gains for integrator
 
