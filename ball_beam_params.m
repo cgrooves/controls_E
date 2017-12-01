@@ -39,7 +39,7 @@ P.sat_limit = [0,15];
 P.tau = 0.05; % dirty derivative time constant
 
 P.zeta_theta = 1/sqrt(2);
-P.tr_theta = .153; % PID value: .153
+P.tr_theta = .125; % PID value: .153
 P.wn_theta = 2.2/P.tr_theta;
 
 P.zeta_z = 1/sqrt(2);
@@ -86,6 +86,11 @@ P.kr = -1/(P.Cr*((P.A-P.B*P.K)\P.B));
 %P.kr = 166.18;
 
 %% FSF w/integrator
-P.p1 = cat(1,P.p,-3); % set additional integrator pole
+P.p1 = cat(1,P.p,-5); % set additional integrator pole
 [P.K1, P.ki1] = FSF_integrator(P.A,P.B,P.Cr,P.p1); % gains for integrator
 
+%% Observer
+P.p_obs = 5*P.p;
+
+P.Obs = Observer(P.A,P.B,P.Cr);
+P.L = P.Obs.gains(P.p_obs);
